@@ -115,7 +115,7 @@ def render_md(results: Dict[str, Any]) -> str:
     L = []
     L.append("# Feature Importance Dispersion Analysis (Defense-in-Depth)\n")
     L.append("Larger Gini + smaller `n_above_1pct` = more concentrated risk")
-    L.append("(easier single-feature attack). Apply NCS's defense-in-depth hypothesis.\n")
+    L.append("(easier single-feature attack).\n")
 
     L.append("\n## Summary table — top dispersion metrics\n")
     L.append("| Config | Model | Gini | N feat ≥1% | N feat ≥0.1% | Top-10 share | Top-50 share |")

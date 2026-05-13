@@ -127,11 +127,9 @@ BASELINE_A = {
     "min_data_in_leaf": 100,
 }
 
-# ── Optuna 100-trial best params (NCS's prior tune Feb 2026 on EMBER2024) ──
-# Source: E:\phase3\publications\papers\EAAI_filetype_experts_reweight_10seeds\
-#         results\filetype_experts_reweight\params\best_params.json
-# Method: D_FileTypeExperts+SizeReweight+HPO (alpha=11, percentile=90, FTE+LS).
-# Use via CONFIG_REGISTRY config "fte_ls_optuna100" — replaces in-loop HPO.
+# Optuna 100-trial best hyperparameters (one-time offline tune on EMBER2024).
+# Method: file-type experts with size-aware reweighting (alpha=11, percentile=90).
+# Use via CONFIG_REGISTRY config "fte_ls_optuna100" -- replaces in-loop HPO.
 BASELINE_OPTUNA_100T = {
     "objective": "binary",
     "boosting_type": "gbdt",

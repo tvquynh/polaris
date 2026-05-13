@@ -73,8 +73,8 @@ CONFIG_REGISTRY: Dict[str, Dict[str, Any]] = {
     "fte_ls_hpo": dict(use_fte=True, use_ls=True, ls_alpha=11, ls_percentile=90,
                        use_hpo=True, baseline_params="A"),
 
-    # Phase 4b alt: FTE + LS with FIXED Optuna-100-trial params (NCS Feb 2026 prior tune)
-    # Avoids in-loop HPO (~9h/seed) → just ~10 min/seed × 10 seeds.
+    # FTE + LS with fixed Optuna-100-trial hyperparameters (one-time offline tune).
+    # Avoids in-loop HPO (~9h/seed) -> approximately 10 min/seed x 10 seeds.
     "fte_ls_optuna100": dict(use_fte=True, use_ls=True, ls_alpha=11, ls_percentile=90,
                               use_hpo=False, baseline_params="OPTUNA100"),
 
