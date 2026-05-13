@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+venv/
+.venv/
+
+# Outputs
+results/
+results_models/
+analysis/
+*.pdf
+*.npz
+*.json
+*.log
+
+# Allow specific docs
+!README.md
+!**/README.md
+
+# Editors
+.vscode/
+.idea/
+*.swp
+.DS_Store
