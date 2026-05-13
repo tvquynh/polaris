@@ -12,14 +12,14 @@
   ],
   "creators": [
     {
-      "name": "Trinh, Van-Quynh",
-      "affiliation": "Posts and Telecommunications Institute of Technology (PTIT), Hanoi, Vietnam",
-      "orcid": "0009-0006-0514-6123"
-    },
-    {
       "name": "Huynh, Trong-Thua",
       "affiliation": "Posts and Telecommunications Institute of Technology (PTIT), Hanoi, Vietnam",
       "orcid": "0000-0003-3934-1067"
+    },
+    {
+      "name": "Trinh, Van-Quynh",
+      "affiliation": "Posts and Telecommunications Institute of Technology (PTIT), Hanoi, Vietnam",
+      "orcid": "0009-0006-0514-6123"
     },
     {
       "name": "Huynh, De-Thu",
