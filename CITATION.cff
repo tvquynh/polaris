@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this artifact, please cite it as below."
+title: "polaris: research artifact"
+type: software
+version: 1.0.0
+doi: 10.5281/zenodo.20172239
+url: "https://doi.org/10.5281/zenodo.20172239"
+repository-code: "https://github.com/tvquynh/polaris"
+license: Apache-2.0
+authors:
+  - family-names: Trinh
+    given-names: Van-Quynh
+    affiliation: "Posts and Telecommunications Institute of Technology (PTIT), Hanoi, Vietnam"
+    orcid: "https://orcid.org/0009-0006-0514-6123"
+  - family-names: Huynh
+    given-names: Trong-Thua
+    affiliation: "Posts and Telecommunications Institute of Technology (PTIT), Hanoi, Vietnam"
+    orcid: "https://orcid.org/0000-0003-3934-1067"
+  - family-names: Huynh
+    given-names: De-Thu
+    affiliation: "Saigon International University (SIU), Ho Chi Minh City, Vietnam"
+    orcid: "https://orcid.org/0000-0002-1227-0281"
+  - family-names: Le
+    given-names: Ngoc-Hieu
+    affiliation: "Posts and Telecommunications Institute of Technology (PTIT), Hanoi, Vietnam"
+    orcid: "https://orcid.org/0009-0005-4869-9003"

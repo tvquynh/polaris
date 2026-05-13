@@ -1,7 +1,26 @@
 # polaris
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20172239.svg)](https://doi.org/10.5281/zenodo.20172239)
+
 Research artifact. Full description will be added upon publication of the
 associated manuscript.
+
+## Citation
+
+If you use this artifact, please cite:
+
+```
+@software{polaris_2026,
+  author       = {Trinh, Van-Quynh and Huynh, Trong-Thua and
+                  Huynh, De-Thu and Le, Ngoc-Hieu},
+  title        = {polaris: research artifact},
+  year         = {2026},
+  publisher    = {Zenodo},
+  version      = {1.0.0},
+  doi          = {10.5281/zenodo.20172239},
+  url          = {https://doi.org/10.5281/zenodo.20172239}
+}
+```
 
 ## Environment
 
