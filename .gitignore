@@ -15,9 +15,11 @@ analysis/
 *.json
 *.log
 
-# Allow specific docs
+# Allow specific docs and metadata
 !README.md
 !**/README.md
+!.zenodo.json
+!CITATION.cff
 
 # Editors
 .vscode/

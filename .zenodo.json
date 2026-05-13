@@ -1,0 +1,36 @@
+{
+  "title": "polaris: research artifact",
+  "description": "<p>Research artifact accompanying a peer-reviewed manuscript currently under review. The repository contains Python source code, configuration files, and analysis scripts used to produce the experimental results reported in the associated publication.</p><p>Full description, scientific context, and final citation information will be released upon publication of the associated paper.</p><p>License: Apache 2.0. See <code>README.md</code> for environment setup and dataset acquisition instructions.</p>",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "Apache-2.0",
+  "version": "1.0.0",
+  "language": "eng",
+  "keywords": [
+    "research artifact",
+    "reproducibility"
+  ],
+  "creators": [
+    {
+      "name": "Trinh, Van-Quynh",
+      "affiliation": "Posts and Telecommunications Institute of Technology (PTIT), Hanoi, Vietnam",
+      "orcid": "0009-0006-0514-6123"
+    },
+    {
+      "name": "Huynh, Trong-Thua",
+      "affiliation": "Posts and Telecommunications Institute of Technology (PTIT), Hanoi, Vietnam",
+      "orcid": "0000-0003-3934-1067"
+    },
+    {
+      "name": "Huynh, De-Thu",
+      "affiliation": "Saigon International University (SIU), Ho Chi Minh City, Vietnam",
+      "orcid": "0000-0002-1227-0281"
+    },
+    {
+      "name": "Le, Ngoc-Hieu",
+      "affiliation": "Posts and Telecommunications Institute of Technology (PTIT), Hanoi, Vietnam",
+      "orcid": "0009-0005-4869-9003"
+    }
+  ],
+  "communities": []
+}
