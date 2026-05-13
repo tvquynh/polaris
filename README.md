@@ -11,8 +11,8 @@ If you use this artifact, please cite:
 
 ```
 @software{polaris_2026,
-  author       = {Huynh, Trong-Thua and Trinh, Van-Quynh and
-                  Huynh, De-Thu and Le, Ngoc-Hieu},
+  author       = {Trong-Thua, Huynh and Van-Quynh, Trinh and
+                  De-Thu, Huynh and Ngoc-Hieu, Le},
   title        = {polaris: research artifact},
   year         = {2026},
   publisher    = {Zenodo},

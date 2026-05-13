@@ -8,19 +8,19 @@ url: "https://doi.org/10.5281/zenodo.20172239"
 repository-code: "https://github.com/tvquynh/polaris"
 license: Apache-2.0
 authors:
-  - family-names: Huynh
-    given-names: Trong-Thua
+  - family-names: Trong-Thua
+    given-names: Huynh
     affiliation: "Posts and Telecommunications Institute of Technology (PTIT), Hanoi, Vietnam"
     orcid: "https://orcid.org/0000-0003-3934-1067"
-  - family-names: Trinh
-    given-names: Van-Quynh
+  - family-names: Van-Quynh
+    given-names: Trinh
     affiliation: "Posts and Telecommunications Institute of Technology (PTIT), Hanoi, Vietnam"
     orcid: "https://orcid.org/0009-0006-0514-6123"
-  - family-names: Huynh
-    given-names: De-Thu
+  - family-names: De-Thu
+    given-names: Huynh
     affiliation: "Saigon International University (SIU), Ho Chi Minh City, Vietnam"
     orcid: "https://orcid.org/0000-0002-1227-0281"
-  - family-names: Le
-    given-names: Ngoc-Hieu
+  - family-names: Ngoc-Hieu
+    given-names: Le
     affiliation: "Posts and Telecommunications Institute of Technology (PTIT), Hanoi, Vietnam"
     orcid: "https://orcid.org/0009-0005-4869-9003"
