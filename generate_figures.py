@@ -115,7 +115,8 @@ def fig2_per_type_breakdown(master: dict, out_path: Path):
     for i, c in enumerate(top5):
         means = [c["metrics"][f"{t}_tpr_001"]["mean"] for t in types]
         stds = [c["metrics"][f"{t}_tpr_001"]["std"] for t in types]
-        ax.bar(x + i * width, means, width, yerr=stds, label=c["config"],
+        ax.bar(x + i * width, means, width, yerr=stds,
+               label=HUMAN_LABEL.get(c["config"], c["config"]),
                color=grey_shades[i], edgecolor="black", linewidth=0.4,
                capsize=1.5, error_kw={"linewidth": 0.5})
     ax.set_xticks(x + 2 * width)
@@ -134,9 +135,10 @@ def fig3_roc_curves(results_dir: Path, out_path: Path):
     from sklearn.metrics import roc_curve
 
     cfgs_plot = [
-        ("baseline_B", "Baseline (Joyce KDD'25)", "#bbbbbb", "-"),
-        ("fte_ls", "FTE + LS (no HPO)", "#666666", "--"),
-        ("fte_ls_optuna100", "FTE + LS + Optuna params", "#222222", "-"),
+        ("baseline_B", "Baseline (Joyce-style)", "#bbbbbb", "-"),
+        ("fte_ls", "FTE + LS (no HPO)", "#888888", "--"),
+        ("fte_ls_optuna100", "FTE + LS + Optuna", "#444444", "-."),
+        ("fte_ls_peto_optuna100", "FTE + LS + PETO + Optuna (winner)", "#111111", "-"),
     ]
     fig, ax = plt.subplots(figsize=(5, 4.5))
     for cfg, label, color, ls in cfgs_plot:
