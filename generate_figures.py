@@ -27,6 +27,9 @@ plt.rcParams.update({
     "axes.facecolor": "white",
     "savefig.dpi": 300,
     "savefig.bbox": "tight",
+    # Embed TrueType (Type 42) fonts for journal production compliance
+    "pdf.fonttype": 42,
+    "ps.fonttype": 42,
 })
 
 
@@ -176,15 +179,24 @@ def fig3_roc_curves(results_dir: Path, out_path: Path):
 
 def fig4_compute_vs_tpr(master: dict, results_dir: Path, out_path: Path):
     """Scatter: compute cost (min/seed) vs TPR. Pareto front."""
-    import glob
-    configs_to_show = ["baseline_B", "fte", "fte_ls", "fte_mgep_sar_ls",
-                       "fte_mgep_sar_ls_peto_noHPO", "fte_ls_optuna100", "fte_ls_hpo"]
+    configs_to_show = ["baseline_B", "fte", "fte_ls", "fte_ls_peto",
+                       "fte_mgep_sar_ls_peto_noHPO", "fte_ls_optuna100",
+                       "fte_ls_peto_optuna100", "fte_ls_hpo"]
+    short_label = {
+        "baseline_B":               "Baseline",
+        "fte":                      "FTE",
+        "fte_ls":                   "FTE+LS",
+        "fte_ls_peto":              "FTE+LS+PETO",
+        "fte_mgep_sar_ls_peto_noHPO": "4-component",
+        "fte_ls_optuna100":         "FTE+LS+Optuna",
+        "fte_ls_peto_optuna100":    "FTE+LS+PETO+Optuna (winner)",
+        "fte_ls_hpo":               "FTE+LS+per-seed HPO",
+    }
     points = []
     for c in master["configs"]:
         if c["config"] not in configs_to_show:
             continue
         cfg = c["config"]
-        # Get wallclock from metrics.json files
         walls = []
         for p in sorted((results_dir / cfg).glob("seed_*/metrics.json")):
             d = json.loads(p.read_text())
@@ -197,30 +209,34 @@ def fig4_compute_vs_tpr(master: dict, results_dir: Path, out_path: Path):
             continue
         points.append((mean_wall, m["mean"], cfg))
 
-    # Add fte_ls_hpo separately (n=2 only, parsed manually)
-    hpo_walls = []
+    # fte_ls_hpo separately (only n=2 done, not in master table)
+    hpo_walls, hpo_tprs = [], []
     for p in sorted((results_dir / "fte_ls_hpo").glob("seed_*/metrics.json")):
         d = json.loads(p.read_text())
         hpo_walls.append(d.get("wallclock_s", 0) / 60)
-        hpo_tpr = d["ensemble"]["ensemble_tpr_at_fpr_0.01"]
+        hpo_tprs.append(d["ensemble"]["ensemble_tpr_at_fpr_0.01"])
     if hpo_walls:
-        mean_wall = sum(hpo_walls) / len(hpo_walls)
-        # Use mean TPR from existing files
-        tprs = [json.loads(p.read_text())["ensemble"]["ensemble_tpr_at_fpr_0.01"]
-                for p in sorted((results_dir / "fte_ls_hpo").glob("seed_*/metrics.json"))]
-        if tprs:
-            points.append((mean_wall, sum(tprs) / len(tprs), "fte_ls_hpo (in-loop HPO)"))
+        points.append((sum(hpo_walls)/len(hpo_walls), sum(hpo_tprs)/len(hpo_tprs),
+                       "fte_ls_hpo"))
 
-    fig, ax = plt.subplots(figsize=(7, 4))
+    fig, ax = plt.subplots(figsize=(7.5, 4))
     for wall, tpr, name in points:
-        marker_size = 80 if name == "fte_ls_optuna100" else 40
-        face = "#222222" if name == "fte_ls_optuna100" else "white"
+        is_winner = name == "fte_ls_peto_optuna100"
+        marker_size = 100 if is_winner else 50
+        face = "#111111" if is_winner else "white"
         ax.scatter(wall, tpr, s=marker_size, c=face, edgecolors="black",
-                   linewidths=0.8, zorder=3)
-        ax.annotate(name, (wall, tpr), xytext=(5, 5), textcoords="offset points",
-                    fontsize=7, alpha=0.85)
+                   linewidths=0.9, zorder=3)
+        label = short_label.get(name, name)
+        # Offset annotation to avoid overlap
+        dx, dy = (8, 8) if not is_winner else (-15, -14)
+        ax.annotate(label, (wall, tpr), xytext=(dx, dy),
+                    textcoords="offset points",
+                    fontsize=8, alpha=0.95,
+                    fontweight=("bold" if is_winner else "normal"))
 
     ax.set_xscale("log")
+    ax.set_xlim(4, 1000)
+    ax.set_ylim(0.59, 0.79)
     ax.set_xlabel("Compute cost (min/seed, log scale)")
     ax.set_ylabel("TPR @ 1% FPR (challenge)")
     ax.grid(linewidth=0.3, alpha=0.3)
