@@ -129,6 +129,35 @@ CONFIG_REGISTRY: Dict[str, Dict[str, Any]] = {
         ls_alpha=11, ls_percentile=90, use_peto=True, use_hpo=True,
         weight_clip_R=20.0, baseline_params="A",
     ),
+
+    # ── Phase 2 controls (reviewer-requested, added 2026-05-14) ──
+    # Isolate marginal effect of MG-EP-PT/SAR/PETO on FTE+LS base.
+    "fte_ls_mgep": dict(
+        use_fte=True, use_ls=True, ls_alpha=11, ls_percentile=90,
+        use_mgep=True, mgep_top_k=3, mgep_ranking="per_type",
+        baseline_params="A",
+    ),
+    "fte_ls_sar": dict(
+        use_fte=True, use_ls=True, ls_alpha=11, ls_percentile=90,
+        use_sar=True, baseline_params="A",
+    ),
+    "fte_ls_peto": dict(
+        use_fte=True, use_ls=True, ls_alpha=11, ls_percentile=90,
+        use_peto=True, baseline_params="A",
+    ),
+    # Isolate HPO contribution from architecture (Baseline unified + Optuna-100T).
+    "baseline_B_optuna": dict(
+        use_fte=False, baseline_params="OPTUNA100",
+    ),
+
+    # ── Phase 6 (PETO + Optuna compound test, added 2026-05-16) ──
+    # Test if PETO and Optuna-100T effects compound. Phase 5 showed PETO alone
+    # on FTE+LS gives +0.54 pp ensemble, +7.66 pp Win64. This config combines
+    # both winning components.
+    "fte_ls_peto_optuna100": dict(
+        use_fte=True, use_ls=True, ls_alpha=11, ls_percentile=90,
+        use_peto=True, use_hpo=False, baseline_params="OPTUNA100",
+    ),
 }
 
 

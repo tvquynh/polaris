@@ -34,13 +34,35 @@ def load_master(results_dir: Path) -> dict:
     return json.loads((results_dir / "aggregated" / "aggregated_master_table.json").read_text())
 
 
+HUMAN_LABEL = {
+    "baseline_B": "Baseline (Joyce-style)",
+    "baseline_B_optuna": "Baseline + Optuna",
+    "fte": "FTE",
+    "fte_sar": "FTE + SAR",
+    "fte_mgep_top3": "FTE + MG-EP-PT",
+    "fte_mgep_sar": "FTE + MG + SAR",
+    "fte_beh_only": "FTE + BEH-EP (legacy)",
+    "fte_ls": "FTE + LS",
+    "fte_ls_mgep": "FTE + LS + MG-EP-PT",
+    "fte_ls_sar": "FTE + LS + SAR",
+    "fte_ls_peto": "FTE + LS + PETO",
+    "fte_mgep_sar_ls": "FTE + MG + SAR + LS",
+    "fte_mgep_sar_ls_peto_noHPO": "FTE + 4-component",
+    "R_5": "4-component, R=5",
+    "R_20": "4-component, R=20",
+    "fte_ls_optuna100": "FTE + LS + Optuna",
+    "fte_ls_peto_optuna100": "FTE + LS + PETO + Optuna",
+}
+
+
 def fig1_ablation_bar(master: dict, out_path: Path):
-    """Main TPR bar chart, configs ranked descending."""
+    """Main TPR bar chart, configs ranked descending. Highlight NEW winner."""
     configs = master["configs"]
     ranked = sorted(configs,
                     key=lambda c: -(c["metrics"].get("ensemble_tpr_001") or {}).get("mean", -1))
 
     names = [c["config"] for c in ranked]
+    labels = [HUMAN_LABEL.get(n, n) for n in names]
     means = [c["metrics"]["ensemble_tpr_001"]["mean"] for c in ranked]
     ci_los = [c["metrics"]["ensemble_tpr_001"]["mean"] - c["metrics"]["ensemble_tpr_001"]["ci95_lo"]
               for c in ranked]
@@ -48,25 +70,31 @@ def fig1_ablation_bar(master: dict, out_path: Path):
               for c in ranked]
     errs = np.array([ci_los, ci_his])
 
-    # Highlight winner + baseline
+    # Highlight: new winner = darkest, prior winner = dark, baseline = lightest
     colors = []
     for name in names:
-        if name == "fte_ls_optuna100":
-            colors.append("#222222")  # winner = darkest
+        if name == "fte_ls_peto_optuna100":
+            colors.append("#111111")  # NEW winner = black
+        elif name == "fte_ls_optuna100":
+            colors.append("#444444")  # Prior winner = dark grey
         elif name == "baseline_B":
-            colors.append("#bbbbbb")  # baseline = lightest
+            colors.append("#cccccc")  # baseline = lightest
         else:
-            colors.append("#666666")  # others = mid grey
+            colors.append("#888888")  # others = mid grey
 
-    fig, ax = plt.subplots(figsize=(9, 4))
+    fig, ax = plt.subplots(figsize=(10, 4.5))
     x = np.arange(len(names))
     ax.bar(x, means, yerr=errs, color=colors, edgecolor="black", linewidth=0.5,
            capsize=2, error_kw={"linewidth": 0.6})
     ax.set_xticks(x)
-    ax.set_xticklabels(names, rotation=45, ha="right", fontsize=8)
+    ax.set_xticklabels(labels, rotation=45, ha="right", fontsize=8)
     ax.set_ylabel("TPR @ 1% FPR (challenge set)")
     ax.set_ylim(0.55, 0.80)
-    ax.axhline(means[-1], color="black", linewidth=0.5, linestyle="--", alpha=0.5)
+    # Baseline TPR reference line
+    baseline_mean = next((c["metrics"]["ensemble_tpr_001"]["mean"] for c in ranked
+                          if c["config"] == "baseline_B"), None)
+    if baseline_mean is not None:
+        ax.axhline(baseline_mean, color="black", linewidth=0.5, linestyle="--", alpha=0.5)
     ax.grid(axis="y", linewidth=0.3, alpha=0.3)
     ax.spines[["top", "right"]].set_visible(False)
     fig.savefig(out_path, dpi=300)

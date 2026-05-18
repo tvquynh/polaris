@@ -24,18 +24,22 @@ from scipy import stats
 # Skip: baseline_A (per memory rule), drop_bottom_* (failed bug), fte_ls_hpo (only n=2)
 CONFIGS_ORDERED = [
     "baseline_B",
+    "baseline_B_optuna",       # Phase 5 (M7 reviewer control)
     "fte",
     "fte_sar",
     "fte_mgep_top3",
-    "fte_mgep_top5",
     "fte_mgep_sar",
     "fte_beh_only",
     "fte_ls",
+    "fte_ls_mgep",             # Phase 5 (M3 reviewer control)
+    "fte_ls_sar",              # Phase 5 (M3 reviewer control)
+    "fte_ls_peto",             # Phase 5 (M3 reviewer control)
     "fte_mgep_sar_ls",
     "fte_mgep_sar_ls_peto_noHPO",
     "R_5",
     "R_20",
     "fte_ls_optuna100",
+    "fte_ls_peto_optuna100",   # Phase 6 NEW WINNER
 ]
 
 METRIC_KEYS = {
